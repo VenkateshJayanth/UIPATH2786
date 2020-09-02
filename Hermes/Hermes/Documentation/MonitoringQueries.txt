@@ -1,0 +1,26 @@
+To check if the records are downloaded for the current  day / For monitoring number of records for current day use the following querry
+
+
+Query:: select * from [dbo].[M_Orders] where convert(date,[CreatedDate])=convert(date,getdate()) and [IsDocumnetPrinted]='FALSE' and [Status] is NULL
+
+===============================================================================================================================================================
+
+Status in the [M_Orders] can be any one of the following
+
+1. NULL --> The record has not been downloaded yet. It is yet to be processed
+2. SUCCESS --> The document has been downloaded and sent for printing
+3. EXCEPTION --> The document has not been downloaded. The reason for not downloading can be found in "Comments" column.
+
+===========================================================================================================================
+
+To check the status of records downloaded or to check the status of summary report please run the follwoing query
+
+Query :: select * from [dbo].[M_Status] where Convert(date,CreatedDate)=convert(date,getdate())
+
+===========================================================================================================================
+
+To check number of documents to be printed for current day
+
+Query :: select distinct ConsigneeAddress from [dbo].[M_Orders] where convert(date,[CreatedDate])=convert(date,getdate()) 
+
+=========================================================================================================================

@@ -1,0 +1,113 @@
+USE [HERMES]
+GO
+
+/****** Object:  Table [dbo].[M_Status]    Script Date: 20-Aug-19 1:46:05 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[M_Status](
+	[CreatedDate] [datetime] NOT NULL,
+	[IsOrdersDownloaded] [nvarchar](10) NULL,
+	[IsReportSent] [nvarchar](10) NULL
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[M_Status] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+ALTER TABLE [dbo].[M_Status] ADD  DEFAULT ('FALSE') FOR [IsOrdersDownloaded]
+GO
+
+ALTER TABLE [dbo].[M_Status] ADD  DEFAULT ('FALSE') FOR [IsReportSent]
+GO
+
+==============================================================================================================
+
+USE [HERMES]
+GO
+
+/****** Object:  Table [dbo].[M_Orders]    Script Date: 20-Aug-19 1:46:56 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[M_Orders](
+	[CreatedDate] [datetime] NOT NULL,
+	[OrderNo] [nvarchar](max) NULL,
+	[ConsigneeAddress] [nvarchar](max) NULL,
+	[SelectorIndex] [nvarchar](max) NULL,
+	[IsDocumnetPrinted] [nvarchar](10) NULL,
+	[Status] [nvarchar](max) NULL,
+	[Comments] [nvarchar](max) NULL,
+	[IsPDFDownloaded] [nvarchar](10) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[M_Orders] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+GO
+
+ALTER TABLE [dbo].[M_Orders] ADD  DEFAULT ('FALSE') FOR [IsDocumnetPrinted]
+GO
+
+ALTER TABLE [dbo].[M_Orders] ADD  DEFAULT ('FALSE') FOR [IsPDFDownloaded]
+GO
+
+
+=================================================================================================
+
+USE [HERMES]
+GO
+
+/****** Object:  Table [dbo].[M_Config]    Script Date: 20-Aug-19 1:47:42 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[M_Config](
+	[KeyName] [nvarchar](max) NULL,
+	[KeyValue] [nvarchar](max) NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+============================================================================================================
+
+insert into [M_Config]
+values('SenderMail','GSCVDC.ProcessAssistant@dhl.com'),
+('SupportMail','gsc_virtualdelivery@dhl.com'),
+('MonitoringMail','GSCVDC_Monitoring@dhl.com'),
+('OperationsMail','eric.pottier@dhl.com,zineddine.rabah@dhl.com,jean-marc.jussy@dhl.com'),
+('MailServer','gateway.dhl.com'),
+('MailPort','25'),
+('ErrorMailBody','Hi Team,<br/><br/>There is an exception in HERMES bot <br/><br/>
+
+  Xaml      :: Main <br/>
+  Sub xaml  :: strsub <br/>
+  Sequence  ::  strseq <br/>
+  Exception :: <b style=''color:red''>strex</b> <br/>
+  Guideline :: <b style=''color:green''>strguide</b><br/><br/>
+
+  Thanks,<br/>
+  Hermes Robot.'),
+('FCM_Url','https://ax4.com/ax4/control/logout'),
+('ReportsPath','D:\RPA\Hermes\Reports\Hermes_SummaryReport.xlsx'),
+('Run_WaitTime','10'),
+('HomePageTimeout','300000'),
+('InputPath','D:\RPA\Hermes\Data\'),
+('OrderSelector','<html title=''AX4'' /><webctrl id=''input-ids--INDEX'' tag=''INPUT'' />'),
+('PrinterDelay','5'),
+('DownloadsFolder','D:\RPA\Hermes\Downloads\'),
+('PrintCompleted','D:\RPA\Hermes\PrintCompleted\'),
+('PrinterName','XEROX PRINTER FRANCE'),
+('ArchiveDays','5')
+
+=====================================================================================================================
